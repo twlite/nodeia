@@ -1,0 +1,61 @@
+{
+  "name": "nodeia",
+  "version": "0.0.0",
+  "description": "Simplified networking api for Node.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    "bun": {
+      "default": "./src/index.ts",
+      "types": "./src/index.d.ts"
+    },
+    "deno": {
+      "default": "./src/index.ts",
+      "types": "./src/index.d.ts"
+    },
+    "import": {
+      "default": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    },
+    "require": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "test:node": "tsx ./example/index.ts",
+    "test:bun": "bun run ./example/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twlite/nodeia.git"
+  },
+  "keywords": [
+    "nodeia",
+    "node",
+    "simplified",
+    "easy",
+    "api",
+    "bun"
+  ],
+  "author": "twlite",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/twlite/nodeia/issues"
+  },
+  "homepage": "https://github.com/twlite/nodeia#readme",
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@types/ws": "^8.5.10",
+    "tsup": "^8.1.0",
+    "tsx": "^4.15.1",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "ws": "^8.17.0"
+  }
+}
