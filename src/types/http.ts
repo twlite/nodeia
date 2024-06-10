@@ -1,9 +1,9 @@
 import type ws from 'ws';
 
-import type { Server } from '../serve/server';
+import { Awaitable, Maybe } from './common';
+import type { Server as Server } from '../serve/server';
 
-export type Awaitable<T> = T | Promise<T>;
-export type MaybeResponse = Response | void | undefined;
+export type MaybeResponse = Maybe<Response>;
 
 export type FetchHandler = (
   request: Request,

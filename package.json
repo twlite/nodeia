@@ -1,6 +1,6 @@
 {
   "name": "nodeia",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simplified networking api for Node.js",
   "main": "dist/index.js",
   "files": [
@@ -9,10 +9,6 @@
   ],
   "exports": {
     "bun": {
-      "default": "./src/index.ts",
-      "types": "./src/index.d.ts"
-    },
-    "deno": {
       "default": "./src/index.ts",
       "types": "./src/index.d.ts"
     },
@@ -40,6 +36,9 @@
     "simplified",
     "easy",
     "api",
+    "http",
+    "websocket",
+    "tcp",
     "bun"
   ],
   "author": "twlite",

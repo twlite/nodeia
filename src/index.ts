@@ -1,12 +1,24 @@
-import { serve } from './serve/serve';
+import { serve } from './serve/server';
+import { listen } from './tcp/server';
+import { connect } from './tcp/client';
 
-export const Nodeia = Object.freeze({
+export const Nodeia = {
   serve,
-});
+  listen,
+  connect,
+};
 
 export default Nodeia;
 
-export * from './serve/serve';
+// http
 export * from './serve/server';
 export * from './serve/error';
-export * from './common/types';
+
+// tcp
+export * from './tcp/server';
+export * from './tcp/client';
+
+// types
+export * from './types/http';
+export * from './types/tcp';
+export * from './types/common';

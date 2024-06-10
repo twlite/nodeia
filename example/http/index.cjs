@@ -1,6 +1,6 @@
-import { serve } from '../src/index.ts';
+const Nodeia = require('../../dist/index.js');
 
-serve({
+Nodeia.serve({
   development: false,
   fetch(req, server) {
     if (server.upgrade(req)) {

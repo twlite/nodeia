@@ -1,6 +1,6 @@
-import { serve } from '../dist/index.mjs';
+import Nodeia from '../../dist/index.mjs';
 
-serve({
+Nodeia.serve({
   development: false,
   fetch(req, server) {
     if (server.upgrade(req)) {

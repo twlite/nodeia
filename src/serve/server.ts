@@ -7,16 +7,11 @@ import {
   WebsocketErrorHandler,
   WebsocketMessageHandler,
   WebsocketOpenHandler,
-} from '../common/types';
+} from '../types/http';
 import { createErrorResponse } from './error';
 import { Readable } from 'node:stream';
 import { WebSocketServer } from 'ws';
-
-export type ListeningCallback = (
-  hostname: string,
-  port: number,
-  server: Server
-) => void;
+import { AnyListeningCallback, IDisposable } from '../types/common';
 
 export interface WebsocketOptions {
   message?: WebsocketMessageHandler;
@@ -33,7 +28,7 @@ export interface Serve {
   fetch?: FetchHandler;
   error?: ErrorHandler;
   listen?: boolean;
-  listening?: ListeningCallback;
+  listening?: AnyListeningCallback<Server>;
   websocket?: WebsocketOptions;
 }
 
@@ -54,8 +49,6 @@ const BodyLess = new Set([
   'LINK',
   'UNLINK',
 ]);
-
-type IDisposable = Disposable & AsyncDisposable;
 
 export class Server implements IDisposable {
   #server: http.Server;
@@ -274,11 +267,14 @@ export class Server implements IDisposable {
 
         const res = await this.#handleRequest(request);
 
-        if (res) {
-          await res.body?.cancel();
+        if (res?.body && !res.bodyUsed) {
+          Readable.fromWeb(res.body as any).pipe(socket, { end: true });
         }
       } catch (e) {
-        this.#handleError(e as Error, request);
+        const res = await this.#handleError(e as Error, request);
+        if (res?.body && !res.bodyUsed) {
+          Readable.fromWeb(res.body as any).pipe(socket, { end: true });
+        }
       }
     });
 
@@ -323,4 +319,15 @@ export class Server implements IDisposable {
   public [Symbol.asyncDispose]() {
     return this.close();
   }
+}
+
+/**
+ * Create a new http or websocket server.
+ * @param options The server options.
+ * @returns A new server.
+ */
+export function serve(options: Serve) {
+  const server = new Server(options);
+
+  return server;
 }
