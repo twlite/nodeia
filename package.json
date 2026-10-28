@@ -50,7 +50,7 @@
   "devDependencies": {
     "@types/node": "^20.14.2",
     "@types/ws": "^8.5.10",
-    "tsup": "^8.1.0",
+    "tsup": "^9.0.0",
     "tsx": "^4.15.1",
     "typescript": "^5.4.5"
   },
